@@ -139,6 +139,14 @@ class TestExecutor {
         logger.trace('Observatory url: $url');
         completer.complete(url);
       }
+      final webMatch =
+          RegExp('service listening on (ws://.*)').firstMatch(line);
+      if (webMatch != null) {
+        syncingProgress?.finish(showTiming: true);
+        final url = webMatch.group(1);
+        logger.trace('Observatory url: $url');
+        completer.complete(url);
+      }
     });
     // ignore: unawaited_futures
     logger.trace('Running $command');
